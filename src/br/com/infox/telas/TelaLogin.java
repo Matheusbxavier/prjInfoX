@@ -38,7 +38,7 @@ public class TelaLogin extends javax.swing.JFrame {
                 String perfil = rs.getString(6);
                 //System.out.println(perfil);
                 //a estrutura abaixo faz o tratamento do perfil do usuario
-                if (perfil.equals("admin")) {
+                if (perfil.equals("Administrador")) {
                     //se o usuario for adm ira executar o comando abaixo
                     TelaPrincipal principal = new TelaPrincipal();
                     principal.setVisible(true);
