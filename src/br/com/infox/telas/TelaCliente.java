@@ -8,6 +8,7 @@ package br.com.infox.telas;
 import java.sql.*;
 import br.com.infox.dal.ModuloConexao;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 //a linha abaixo importa recursos da biblioteca rs2xml
 import net.proteanit.sql.DbUtils;
 
@@ -34,13 +35,13 @@ public class TelaCliente extends javax.swing.JInternalFrame {
         String sql = "insert into tbclientes(nomecli, endcli, fonecli, emailcli) values(?,?,?,?)";
         try {
             pst = conexao.prepareStatement(sql);
-            pst.setString(1, txtCliId.getText());
+            pst.setString(1, txtCliNome.getText());
             pst.setString(2, txtCliEndereco.getText());
             pst.setString(3, txtCliFone.getText());
             pst.setString(4, txtCliEmail.getText());
 
             //validação dos campos obrigatorios
-            if ((txtCliId.getText().isEmpty()) || (txtCliFone.getText().isEmpty())) {
+            if ((txtCliNome.getText().isEmpty()) || (txtCliFone.getText().isEmpty())) {
                 JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatorios");
             } else {
                 //a linha abaixo atualiza a tabela usuario com os dados do formulario
@@ -50,10 +51,7 @@ public class TelaCliente extends javax.swing.JInternalFrame {
                 //System.out.println(adicionado);
                 if (adicionado > 0) {
                     JOptionPane.showMessageDialog(null, "Cliente cadastrado com sucesso");
-                    txtCliId.setText(null);
-                    txtCliEndereco.setText(null);
-                    txtCliFone.setText(null);
-                    txtCliEmail.setText(null);
+                    limpar();
                 }
             }
         } catch (Exception e) {
@@ -111,11 +109,7 @@ public class TelaCliente extends javax.swing.JInternalFrame {
                 //System.out.println(adicionado);
                 if (adicionado > 0) {
                     JOptionPane.showMessageDialog(null, "Dados do cliente alterados com sucesso");
-                    txtCliId.setText(null);
-                    txtCliNome.setText(null);
-                    txtCliEndereco.setText(null);
-                    txtCliFone.setText(null);
-                    txtCliEmail.setText(null);
+                    limpar();
                     btnCliAdicionar.setEnabled(true);
                 }
             }
@@ -136,12 +130,7 @@ public class TelaCliente extends javax.swing.JInternalFrame {
                 int apagado = pst.executeUpdate();
                 if (apagado > 0) {
                     JOptionPane.showMessageDialog(null, "Cliente removido com sucesso");
-                    txtCliId.setText(null);
-                    txtCliNome.setText(null);
-                    txtCliEndereco.setText(null);
-                    txtCliFone.setText(null);
-                    txtCliEmail.setText(null);
-
+                    limpar();
                 }
 
             } catch (Exception e) {
@@ -149,6 +138,18 @@ public class TelaCliente extends javax.swing.JInternalFrame {
             }
 
         }
+    }
+
+    //metodo para limpar os campos do formulario
+    private void limpar() {
+        txtCliPesquisar.setText(null);
+        txtCliId.setText(null);
+        txtCliNome.setText(null);
+        txtCliEndereco.setText(null);
+        txtCliFone.setText(null);
+        txtCliEmail.setText(null);
+        //essa linha limpa os campos da tabela
+        ((DefaultTableModel) tblClientes.getModel()).setRowCount(0);
     }
 
     /**
