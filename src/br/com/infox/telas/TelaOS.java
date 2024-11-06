@@ -5,17 +5,41 @@
  */
 package br.com.infox.telas;
 
+import java.sql.*;
+import br.com.infox.dal.ModuloConexao;
+import javax.swing.JOptionPane;
+import net.proteanit.sql.DbUtils;
+
 /**
  *
  * @author Matheus
  */
 public class TelaOS extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form TelaOS
-     */
+    Connection conexao = null;
+    PreparedStatement pst = null;
+    ResultSet rs = null;
+
     public TelaOS() {
         initComponents();
+        conexao = ModuloConexao.conector();
+    }
+
+    private void pesquisar_cliente() {
+        String sql = "select idcli as Id, nomecli as Nome, fonecli as Fone from tbclientes where nomecli like ?";
+        try {
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, txtOsCliPesquisar.getText() + "%");
+            rs = pst.executeQuery();
+            tblOsClientes.setModel(DbUtils.resultSetToTableModel(rs));
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+
+    private void setar_campos() {
+        int setar = tblOsClientes.getSelectedRow();
+        txtOsCliId.setText(tblOsClientes.getModel().getValueAt(setar, 0).toString());
     }
 
     /**
@@ -127,10 +151,18 @@ public class TelaOS extends javax.swing.JInternalFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Cliente"));
 
+        txtOsCliPesquisar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtOsCliPesquisarKeyReleased(evt);
+            }
+        });
+
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/infox/icones/pesquisar.png"))); // NOI18N
 
         jLabel5.setText("*Id");
 
+        txtOsCliId.setEditable(false);
+        txtOsCliId.setEnabled(false);
         jScrollPane1.setViewportView(txtOsCliId);
 
         tblOsClientes.setModel(new javax.swing.table.DefaultTableModel(
@@ -144,6 +176,11 @@ public class TelaOS extends javax.swing.JInternalFrame {
                 "Id", "Nome", "Fone"
             }
         ));
+        tblOsClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblOsClientesMouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(tblOsClientes);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -295,6 +332,16 @@ public class TelaOS extends javax.swing.JInternalFrame {
 
         setBounds(0, 0, 640, 504);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void txtOsCliPesquisarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtOsCliPesquisarKeyReleased
+        // chamando o metodo pesquisar cliente
+        pesquisar_cliente();
+    }//GEN-LAST:event_txtOsCliPesquisarKeyReleased
+
+    private void tblOsClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblOsClientesMouseClicked
+        // chamando o metodo setar campos
+        setar_campos();
+    }//GEN-LAST:event_tblOsClientesMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
