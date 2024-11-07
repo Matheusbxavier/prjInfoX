@@ -20,6 +20,9 @@ public class TelaOS extends javax.swing.JInternalFrame {
     PreparedStatement pst = null;
     ResultSet rs = null;
 
+    //a linha abaixo cria uma variavel para armazenar um texto de acordo com o radion button selecionado
+    private String tipo;
+    
     public TelaOS() {
         initComponents();
         conexao = ModuloConexao.conector();
@@ -57,7 +60,7 @@ public class TelaOS extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         txtOsNumero = new javax.swing.JTextField();
         txtOsData = new javax.swing.JTextField();
-        rbtOrçamento = new javax.swing.JRadioButton();
+        rbtOrcamento = new javax.swing.JRadioButton();
         rbtOs = new javax.swing.JRadioButton();
         jLabel3 = new javax.swing.JLabel();
         cboOsSit = new javax.swing.JComboBox<>();
@@ -89,6 +92,23 @@ public class TelaOS extends javax.swing.JInternalFrame {
         setIconifiable(true);
         setTitle("OS");
         setPreferredSize(new java.awt.Dimension(640, 504));
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameOpened(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -100,11 +120,21 @@ public class TelaOS extends javax.swing.JInternalFrame {
 
         txtOsData.setEditable(false);
 
-        buttonGroup1.add(rbtOrçamento);
-        rbtOrçamento.setText("Orçamento");
+        buttonGroup1.add(rbtOrcamento);
+        rbtOrcamento.setText("Orçamento");
+        rbtOrcamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtOrcamentoActionPerformed(evt);
+            }
+        });
 
         buttonGroup1.add(rbtOs);
         rbtOs.setText("Ordem de Serviço");
+        rbtOs.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtOsActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -122,7 +152,7 @@ public class TelaOS extends javax.swing.JInternalFrame {
                             .addComponent(jLabel2)
                             .addComponent(txtOsData, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(rbtOrçamento)
+                        .addComponent(rbtOrcamento)
                         .addGap(10, 10, 10)
                         .addComponent(rbtOs)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -140,14 +170,14 @@ public class TelaOS extends javax.swing.JInternalFrame {
                     .addComponent(txtOsNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(rbtOrçamento)
+                    .addComponent(rbtOrcamento)
                     .addComponent(rbtOs))
                 .addGap(24, 24, 24))
         );
 
         jLabel3.setText("Situação");
 
-        cboOsSit.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Entrega OK", "Orçamento Reprovado", "Aguardando Aprovação", "Aguardando peças", "Abandonado pelo cliente", "Na bancada", "Retornou" }));
+        cboOsSit.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Na bancada", "Entrega OK", "Orçamento Reprovado", "Aguardando Aprovação", "Aguardando peças", "Abandonado pelo cliente", "Retornou" }));
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Cliente"));
 
@@ -343,6 +373,22 @@ public class TelaOS extends javax.swing.JInternalFrame {
         setar_campos();
     }//GEN-LAST:event_tblOsClientesMouseClicked
 
+    private void rbtOrcamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtOrcamentoActionPerformed
+        // atribuindo um texto a variavel tipo se selecionado
+        tipo = "orçamento";
+    }//GEN-LAST:event_rbtOrcamentoActionPerformed
+
+    private void rbtOsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtOsActionPerformed
+        // Tatribuindo um texto a variavel tipo se selecionado
+        tipo = "OS";
+    }//GEN-LAST:event_rbtOsActionPerformed
+
+    private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
+        // ao abrir o form marcar o radio button orçamento
+        rbtOrcamento.setSelected(true);
+        tipo = "Orçamento";
+    }//GEN-LAST:event_formInternalFrameOpened
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnOsAdicionar;
@@ -366,7 +412,7 @@ public class TelaOS extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JRadioButton rbtOrçamento;
+    private javax.swing.JRadioButton rbtOrcamento;
     private javax.swing.JRadioButton rbtOs;
     private javax.swing.JTable tblOsClientes;
     private javax.swing.JTextPane txtOsCliId;
