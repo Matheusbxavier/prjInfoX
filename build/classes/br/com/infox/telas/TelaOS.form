@@ -20,6 +20,9 @@
     <SyntheticProperty name="generatePosition" type="boolean" value="true"/>
     <SyntheticProperty name="generateSize" type="boolean" value="true"/>
   </SyntheticProperties>
+  <Events>
+    <EventHandler event="internalFrameOpened" listener="javax.swing.event.InternalFrameListener" parameters="javax.swing.event.InternalFrameEvent" handler="formInternalFrameOpened"/>
+  </Events>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -168,7 +171,7 @@
                           </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="rbtOrçamento" min="-2" max="-2" attributes="0"/>
+                          <Component id="rbtOrcamento" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                           <Component id="rbtOs" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -192,7 +195,7 @@
                   </Group>
                   <EmptySpace pref="28" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="rbtOrçamento" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="rbtOrcamento" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="rbtOs" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
@@ -221,13 +224,16 @@
             <Property name="editable" type="boolean" value="false"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JRadioButton" name="rbtOr&#xe7;amento">
+        <Component class="javax.swing.JRadioButton" name="rbtOrcamento">
           <Properties>
             <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
               <ComponentRef name="buttonGroup1"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Or&#xe7;amento"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rbtOrcamentoActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JRadioButton" name="rbtOs">
           <Properties>
@@ -236,6 +242,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Ordem de Servi&#xe7;o"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rbtOsActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -248,12 +257,12 @@
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="7">
-            <StringItem index="0" value="Entrega OK"/>
-            <StringItem index="1" value="Or&#xe7;amento Reprovado"/>
-            <StringItem index="2" value="Aguardando Aprova&#xe7;&#xe3;o"/>
-            <StringItem index="3" value="Aguardando pe&#xe7;as"/>
-            <StringItem index="4" value="Abandonado pelo cliente"/>
-            <StringItem index="5" value="Na bancada"/>
+            <StringItem index="0" value="Na bancada"/>
+            <StringItem index="1" value="Entrega OK"/>
+            <StringItem index="2" value="Or&#xe7;amento Reprovado"/>
+            <StringItem index="3" value="Aguardando Aprova&#xe7;&#xe3;o"/>
+            <StringItem index="4" value="Aguardando pe&#xe7;as"/>
+            <StringItem index="5" value="Abandonado pelo cliente"/>
             <StringItem index="6" value="Retornou"/>
           </StringArray>
         </Property>
