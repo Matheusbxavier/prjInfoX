@@ -22,7 +22,7 @@ public class TelaOS extends javax.swing.JInternalFrame {
 
     //a linha abaixo cria uma variavel para armazenar um texto de acordo com o radion button selecionado
     private String tipo;
-    
+
     public TelaOS() {
         initComponents();
         conexao = ModuloConexao.conector();
@@ -45,6 +45,29 @@ public class TelaOS extends javax.swing.JInternalFrame {
         txtOsCliId.setText(tblOsClientes.getModel().getValueAt(setar, 0).toString());
     }
 
+    //metodo para cadastrar uma OS
+    private void emitir_os() {
+        String sql = "insert into tbos(tipo, situacao, equipamento, defeito, servico, tecnico, valor, idcli values(?,?,?,?,?,?,?,?)";
+        try {
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1,tipo);
+            pst.setString(2, cboOsSituacao.getSelectedItem().toString());
+            pst.setString(3, txtOsEquipamento.getText());
+            pst.setString(4, txtOsDefeito.getText());
+            pst.setString(5, txtOsServico.getText());
+            pst.setString(6, txtOsTecnico.getText());
+            pst.setString(7, txtOsValorTotal.getText());
+            pst.setString(8, txtOsCliId.getText());
+            
+            //validação dos campos obrigatorios
+            
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -63,7 +86,7 @@ public class TelaOS extends javax.swing.JInternalFrame {
         rbtOrcamento = new javax.swing.JRadioButton();
         rbtOs = new javax.swing.JRadioButton();
         jLabel3 = new javax.swing.JLabel();
-        cboOsSit = new javax.swing.JComboBox<>();
+        cboOsSituacao = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         txtOsCliPesquisar = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
@@ -177,7 +200,7 @@ public class TelaOS extends javax.swing.JInternalFrame {
 
         jLabel3.setText("Situação");
 
-        cboOsSit.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Na bancada", "Entrega OK", "Orçamento Reprovado", "Aguardando Aprovação", "Aguardando peças", "Abandonado pelo cliente", "Retornou" }));
+        cboOsSituacao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Na bancada", "Entrega OK", "Orçamento Reprovado", "Aguardando Aprovação", "Aguardando peças", "Abandonado pelo cliente", "Retornou" }));
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Cliente"));
 
@@ -285,7 +308,7 @@ public class TelaOS extends javax.swing.JInternalFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(cboOsSit, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addComponent(cboOsSituacao, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGap(18, 18, 18)
                         .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
@@ -331,7 +354,7 @@ public class TelaOS extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
-                            .addComponent(cboOsSit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(cboOsSituacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtOsEquipamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -397,7 +420,7 @@ public class TelaOS extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnOsPesquisar;
     private javax.swing.JButton btnOsRemover;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JComboBox<String> cboOsSit;
+    private javax.swing.JComboBox<String> cboOsSituacao;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
