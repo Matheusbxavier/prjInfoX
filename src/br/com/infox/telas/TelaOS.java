@@ -47,21 +47,36 @@ public class TelaOS extends javax.swing.JInternalFrame {
 
     //metodo para cadastrar uma OS
     private void emitir_os() {
-        String sql = "insert into tbos(tipo, situacao, equipamento, defeito, servico, tecnico, valor, idcli values(?,?,?,?,?,?,?,?)";
+        String sql = "insert into tbos(tipo, situacao, equipamento, defeito, servico, tecnico, valor, idcli) values(?,?,?,?,?,?,?,?)";
         try {
             pst = conexao.prepareStatement(sql);
-            pst.setString(1,tipo);
+            pst.setString(1, tipo);
             pst.setString(2, cboOsSituacao.getSelectedItem().toString());
             pst.setString(3, txtOsEquipamento.getText());
             pst.setString(4, txtOsDefeito.getText());
             pst.setString(5, txtOsServico.getText());
             pst.setString(6, txtOsTecnico.getText());
-            pst.setString(7, txtOsValorTotal.getText());
+            //.replace substitui a "," pelo "."
+            pst.setString(7, txtOsValorTotal.getText() .replace(",", "."));
             pst.setString(8, txtOsCliId.getText());
-            
+
             //validação dos campos obrigatorios
-            
-            
+            if ((txtOsCliId.getText().isEmpty()) || (txtOsEquipamento.getText().isEmpty()) || (txtOsDefeito.getText()).isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatorios");
+            } else {
+                int adicionado = pst.executeUpdate();
+                if (adicionado > 0) {
+                    JOptionPane.showMessageDialog(null, "OS emitida com sucesso");
+                    
+                    txtOsEquipamento.setText(null);
+                    txtOsDefeito.setText(null);
+                    txtOsServico.setText(null);
+                    txtOsTecnico.setText(null);
+                    txtOsValorTotal.setText(null);
+                    txtOsCliId.setText(null);
+                }
+            }
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -278,8 +293,15 @@ public class TelaOS extends javax.swing.JInternalFrame {
 
         jLabel10.setText("Valor Total");
 
+        txtOsValorTotal.setText("0");
+
         btnOsAdicionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/infox/icones/create.png"))); // NOI18N
         btnOsAdicionar.setPreferredSize(new java.awt.Dimension(80, 80));
+        btnOsAdicionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOsAdicionarActionPerformed(evt);
+            }
+        });
 
         btnOsPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/infox/icones/read.png"))); // NOI18N
         btnOsPesquisar.setPreferredSize(new java.awt.Dimension(80, 80));
@@ -411,6 +433,11 @@ public class TelaOS extends javax.swing.JInternalFrame {
         rbtOrcamento.setSelected(true);
         tipo = "Orçamento";
     }//GEN-LAST:event_formInternalFrameOpened
+
+    private void btnOsAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOsAdicionarActionPerformed
+        // chamando metodo emitir os
+        emitir_os();
+    }//GEN-LAST:event_btnOsAdicionarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
