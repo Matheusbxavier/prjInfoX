@@ -83,6 +83,24 @@ public class TelaOS extends javax.swing.JInternalFrame {
 
     }
 
+    //metodo para pesquisar OS
+    private void pesquisar_os() {
+        String num_os = JOptionPane.showInputDialog("Numero da OS");
+        String sql="select * from tbos where os= " + num_os;
+        try {
+            pst=conexao.prepareStatement(sql);
+            rs=pst.executeQuery();
+            if (rs.next()) {
+                txtOsNumero.setText(rs.getString(1));
+                
+            } else {
+                JOptionPane.showMessageDialog(null, "OS nao cadastrada");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+        
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -305,6 +323,11 @@ public class TelaOS extends javax.swing.JInternalFrame {
 
         btnOsPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/infox/icones/read.png"))); // NOI18N
         btnOsPesquisar.setPreferredSize(new java.awt.Dimension(80, 80));
+        btnOsPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOsPesquisarActionPerformed(evt);
+            }
+        });
 
         btnOsAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/infox/icones/update.png"))); // NOI18N
         btnOsAlterar.setPreferredSize(new java.awt.Dimension(80, 80));
@@ -438,6 +461,11 @@ public class TelaOS extends javax.swing.JInternalFrame {
         // chamando metodo emitir os
         emitir_os();
     }//GEN-LAST:event_btnOsAdicionarActionPerformed
+
+    private void btnOsPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOsPesquisarActionPerformed
+        // método pesquisar
+        pesquisar_os();
+    }//GEN-LAST:event_btnOsPesquisarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
