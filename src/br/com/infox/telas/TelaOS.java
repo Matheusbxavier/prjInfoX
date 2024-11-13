@@ -94,7 +94,7 @@ public class TelaOS extends javax.swing.JInternalFrame {
                 txtOsNumero.setText(rs.getString(1));
                 txtOsData.setText(rs.getString(2));
                 //setando os radio buttons
-                String rbtTipo = rs.getString(3);
+                String rbtTipo = rs.getString(4);
                 if (rbtTipo.equals("OS")) {
                     rbtOs.setSelected(true);
                     tipo="Ordem de Serviço";
