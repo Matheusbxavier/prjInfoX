@@ -109,12 +109,17 @@ public class TelaOS extends javax.swing.JInternalFrame {
                 txtOsTecnico.setText(rs.getString(8));
                 txtOsValorTotal.setText(rs.getString(9));
                 txtOsCliId.setText(rs.getString(10));
+                //evitando problemas
+                btnOsAdicionar.setEnabled(false);
+                txtOsCliPesquisar.setEnabled(false);
+                tblOsClientes.setVisible(false);
                 
             } else {
                 JOptionPane.showMessageDialog(null, "OS nao cadastrada");
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
+            System.out.println(e);
         }
         
     }
@@ -190,8 +195,10 @@ public class TelaOS extends javax.swing.JInternalFrame {
         jLabel2.setText("Data");
 
         txtOsNumero.setEditable(false);
+        txtOsNumero.setEnabled(false);
 
         txtOsData.setEditable(false);
+        txtOsData.setEnabled(false);
 
         buttonGroup1.add(rbtOrcamento);
         rbtOrcamento.setText("Orçamento");
@@ -464,7 +471,7 @@ public class TelaOS extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_rbtOrcamentoActionPerformed
 
     private void rbtOsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtOsActionPerformed
-        // Tatribuindo um texto a variavel tipo se selecionado
+        // Atribuindo um texto a variavel tipo se selecionado
         tipo = "OS";
     }//GEN-LAST:event_rbtOsActionPerformed
 
