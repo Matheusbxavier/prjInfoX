@@ -280,6 +280,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_menRelCliActionPerformed
 
     private void menRelSerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menRelSerActionPerformed
+        // gerando relatorio
         int confirma = JOptionPane.showConfirmDialog(null, "Confirma a emissão deste relatório?", "Atenção", JOptionPane.YES_NO_OPTION);
         if (confirma == JOptionPane.YES_OPTION) {
             //imprimindo relatio com framework JasperReports

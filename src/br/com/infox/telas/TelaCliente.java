@@ -17,7 +17,6 @@ import net.proteanit.sql.DbUtils;
  * @author Matheus
  */
 public class TelaCliente extends javax.swing.JInternalFrame {
-
     Connection conexao = null;
     PreparedStatement pst = null;
     ResultSet rs = null;
