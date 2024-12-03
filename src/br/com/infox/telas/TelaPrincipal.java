@@ -1,7 +1,25 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * The MIT License
+ *
+ * Copyright 2024 Matheus Batista Xavier.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  */
 package br.com.infox.telas;
 
@@ -16,7 +34,7 @@ import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
- * @author Matheus
+ * @author Matheus Batista Xavier
  */
 public class TelaPrincipal extends javax.swing.JFrame {
 
@@ -30,7 +48,41 @@ public class TelaPrincipal extends javax.swing.JFrame {
         conexao = ModuloConexao.conector();
 
     }
+     
+    private void relatorio_servicos() {
+        // gerando relatorio
+        int confirma = JOptionPane.showConfirmDialog(null, "Confirma a emissão deste relatório?", "Atenção", JOptionPane.YES_NO_OPTION);
+        if (confirma == JOptionPane.YES_OPTION) {
+            //imprimindo relatio com framework JasperReports
+            try {
+                //Usando a classe JasperPrint para preparar a impressão de um relatório
 
+                 JasperPrint print = JasperFillManager.fillReport(getClass().getResourceAsStream("/reports/servicos.jasper"), null, conexao);
+                //a linha abaixo exibe o relatio atraves da classe JasperViewer
+                JasperViewer.viewReport(print, false);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }
+    }
+    
+    private void relatorio_cliente() {
+          // Gerando um relatório de clientes
+        int confirma = JOptionPane.showConfirmDialog(null, "Confirma a emissão deste relatório?", "Atenção", JOptionPane.YES_NO_OPTION);
+        if (confirma == JOptionPane.YES_OPTION) {
+            //imprimindo relatio com framework JasperReports
+            try {
+                //Usando a classe JasperPrint para preparar a impressão de um relatório
+
+                JasperPrint print = JasperFillManager.fillReport(getClass().getResourceAsStream("/reports/clientes.jasper"), null, conexao);
+                //a linha abaixo exibe o relatio atraves da classe JasperViewer
+                JasperViewer.viewReport(print, false);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -41,10 +93,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         desktop = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        lblData = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
         lblUsuario = new javax.swing.JLabel();
-        lblUsuario1 = new javax.swing.JLabel();
+        lblData = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         menu = new javax.swing.JMenuBar();
         menCad = new javax.swing.JMenu();
         menCadCli = new javax.swing.JMenuItem();
@@ -67,30 +120,30 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        desktop.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         desktop.setForeground(new java.awt.Color(255, 255, 255));
+        desktop.setToolTipText("");
         desktop.setPreferredSize(new java.awt.Dimension(640, 505));
+        desktop.setLayout(new java.awt.BorderLayout());
 
-        javax.swing.GroupLayout desktopLayout = new javax.swing.GroupLayout(desktop);
-        desktop.setLayout(desktopLayout);
-        desktopLayout.setHorizontalGroup(
-            desktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 640, Short.MAX_VALUE)
-        );
-        desktopLayout.setVerticalGroup(
-            desktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 504, Short.MAX_VALUE)
-        );
+        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/infox/icones/television_1061392.png"))); // NOI18N
-
-        lblData.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
-        lblData.setText("Data");
-
-        lblUsuario.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
+        lblUsuario.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
         lblUsuario.setText("Usuario");
+        jPanel1.add(lblUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, -1, 20));
 
-        lblUsuario1.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
-        lblUsuario1.setText("Usuario");
+        lblData.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
+        lblData.setText("Data");
+        jPanel1.add(lblData, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 10, -1, -1));
+
+        jLabel2.setFont(new java.awt.Font("Trebuchet MS", 0, 10)); // NOI18N
+        jLabel2.setText("Data:");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 10, -1, -1));
+
+        jLabel3.setFont(new java.awt.Font("Trebuchet MS", 0, 10)); // NOI18N
+        jLabel3.setText("Usuario:");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
 
         menCad.setText("Cadastro");
 
@@ -177,42 +230,18 @@ public class TelaPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(desktop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(20, 20, 20)
-                                .addComponent(lblData))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(lblUsuario))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(lblUsuario1)))
-                        .addContainerGap(117, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel1)
-                        .addGap(43, 43, 43))))
+            .addComponent(desktop, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 934, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblUsuario)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblUsuario1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblData)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel1)
-                .addContainerGap())
-            .addComponent(desktop, javax.swing.GroupLayout.DEFAULT_SIZE, 504, Short.MAX_VALUE)
+                .addComponent(desktop, javax.swing.GroupLayout.PREFERRED_SIZE, 454, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 85, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        setSize(new java.awt.Dimension(875, 564));
+        setSize(new java.awt.Dimension(950, 629));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -263,38 +292,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
 
     private void menRelCliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menRelCliActionPerformed
-        // Gerando um relatório de clientes
-        int confirma = JOptionPane.showConfirmDialog(null, "Confirma a emissão deste relatório?", "Atenção", JOptionPane.YES_NO_OPTION);
-        if (confirma == JOptionPane.YES_OPTION) {
-            //imprimindo relatio com framework JasperReports
-            try {
-                //Usando a classe JasperPrint para preparar a impressão de um relatório
-
-                JasperPrint print = JasperFillManager.fillReport("C:/Reports/clientes.jasper", null, conexao);
-                //a linha abaixo exibe o relatio atraves da classe JasperViewer
-                JasperViewer.viewReport(print, false);
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, e);
-            }
-        }
+        relatorio_cliente();
     }//GEN-LAST:event_menRelCliActionPerformed
-
+   
     private void menRelSerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menRelSerActionPerformed
-        // gerando relatorio
-        int confirma = JOptionPane.showConfirmDialog(null, "Confirma a emissão deste relatório?", "Atenção", JOptionPane.YES_NO_OPTION);
-        if (confirma == JOptionPane.YES_OPTION) {
-            //imprimindo relatio com framework JasperReports
-            try {
-                //Usando a classe JasperPrint para preparar a impressão de um relatório
-
-                JasperPrint print = JasperFillManager.fillReport("C:/Reports/servicos.jasper", null, conexao);
-                //a linha abaixo exibe o relatio atraves da classe JasperViewer
-                JasperViewer.viewReport(print, false);
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, e);
-            }
-        }
-
+        relatorio_servicos();
     }//GEN-LAST:event_menRelSerActionPerformed
 
     /**
@@ -334,11 +336,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel desktop;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblData;
     public static javax.swing.JLabel lblUsuario;
-    public static javax.swing.JLabel lblUsuario1;
     private javax.swing.JMenu menAju;
     private javax.swing.JMenu menCad;
     private javax.swing.JMenuItem menCadCli;
