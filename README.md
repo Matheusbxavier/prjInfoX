@@ -2,10 +2,9 @@
 -
 Sistema OS é um sistema desktop(Windows, Linux ou MAC) para gestão de ordem de serviços de uma assistência técnica de computadores, notebooks e periféricos.
 
-Bibliotecas utilizadas
+### Bibliotecas
+[atxy2k](http://atxy2k.github.io/RestrictedTextField/)
 
-atxy2k
+[driver MySQL](https://dev.mysql.com/downloads/connector/j/)
 
-driver MySQL
-
-rs2xml
+[rs2xml](https://sourceforge.net/projects/finalangelsanddemons/files/rs2xml.jar/download)
